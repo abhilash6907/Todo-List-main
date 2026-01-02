@@ -92,9 +92,8 @@ export async function updateTask(
     { returnDocument: "after", projection: { _id: 0 } }
   );
 
-  // Handle both old and new MongoDB driver versions
-  const doc = result.value || result;
-  return doc && typeof doc === 'object' && 'id' in doc ? toTask(doc as TaskDocument) : undefined;
+  if (!result) return undefined;
+  return toTask(result as TaskDocument);
 }
 
 export async function deleteTask(userId: string, id: string): Promise<boolean> {
