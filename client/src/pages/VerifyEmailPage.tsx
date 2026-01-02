@@ -29,7 +29,11 @@ export function VerifyEmailPage() {
 
   const verifyEmail = async (token: string) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || "https://todo-list-main-server.vercel.app"}/api/auth/verify/${token}`);
+      const apiUrl = import.meta.env.VITE_API_BASE_URL || 
+        (import.meta.env.MODE === 'production' 
+          ? "https://todo-list-main-server.vercel.app"
+          : "http://localhost:5174");
+      const response = await fetch(`${apiUrl}/api/auth/verify/${token}`);
       const data = await response.json();
 
       if (!response.ok) {

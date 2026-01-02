@@ -1,7 +1,10 @@
 import type { ApiErrorBody } from "../types";
 import { clearAuth, getAuthToken } from "../modules/auth/storage";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://todo-list-main-server.vercel.app";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 
+  (import.meta.env.MODE === 'production' 
+    ? "https://todo-list-main-server.vercel.app"
+    : "http://localhost:5174");
 
 export class ApiError extends Error {
   status: number;
