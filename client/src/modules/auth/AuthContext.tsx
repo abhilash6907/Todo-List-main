@@ -37,7 +37,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setStoredUser(next.user);
       setToken(next.token);
       setUser(next.user);
-      window.dispatchEvent(new Event("auth:changed"));
     }
   }, []);
 

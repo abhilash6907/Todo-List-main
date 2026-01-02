@@ -45,7 +45,7 @@ export function LoginPage() {
           setSubmitting(true);
           try {
             await login(email, password);
-            navigate(from, { replace: true, state: { refresh: true } });
+            navigate(from, { replace: true });
           } catch (err) {
             setError(err instanceof Error ? err.message : "Login failed");
           } finally {
