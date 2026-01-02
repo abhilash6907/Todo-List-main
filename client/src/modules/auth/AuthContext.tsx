@@ -2,6 +2,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState
 } from "react";
@@ -30,6 +31,19 @@ const AuthContext = createContext<AuthState | null>(null);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(() => getAuthToken());
   const [user, setUser] = useState<AuthUser | null>(() => getStoredUser());
+
+  // Listen for auth changes (from logout in http.ts when 401)
+  useEffect(() => {
+    const handleAuthChange = () => {
+      const currentToken = getAuthToken();
+      const currentUser = getStoredUser();
+      setToken(currentToken);
+      setUser(currentUser);
+    };
+
+    window.addEventListener("auth:changed", handleAuthChange);
+    return () => window.removeEventListener("auth:changed", handleAuthChange);
+  }, []);
 
   const applyAuth = useCallback((next: authApi.AuthResponse) => {
     if (next.token) {
