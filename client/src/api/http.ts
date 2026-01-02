@@ -1,6 +1,8 @@
 import type { ApiErrorBody } from "../types";
 import { clearAuth, getAuthToken } from "../modules/auth/storage";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://todo-list-main-server.vercel.app";
+
 export class ApiError extends Error {
   status: number;
   body?: ApiErrorBody;
@@ -17,6 +19,11 @@ export async function apiFetch<T>(
   init?: RequestInit
 ): Promise<T> {
   const token = getAuthToken();
+  
+  // Construct full URL if input is a relative path
+  const url = typeof input === 'string' && input.startsWith('/') 
+    ? `${API_BASE_URL}${input}` 
+    : input;
 
   const headers: Record<string, string> = {
     "Content-Type": "application/json"
@@ -39,7 +46,7 @@ export async function apiFetch<T>(
     headers.Authorization = `Bearer ${token}`;
   }
 
-  const res = await fetch(input, {
+  const res = await fetch(url, {
     ...init,
     headers: {
       ...headers
