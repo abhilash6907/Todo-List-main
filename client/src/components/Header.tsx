@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { LogIn, LogOut, Plus, UserPlus } from "lucide-react";
 import { Button } from "./Button";
@@ -7,7 +7,6 @@ import { useAuth } from "../modules/auth/AuthContext";
 
 export function Header() {
   const location = useLocation();
-  const navigate = useNavigate();
   const onHome = location.pathname === "/";
   const { isAuthenticated, logout } = useAuth();
 

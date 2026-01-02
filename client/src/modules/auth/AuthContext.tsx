@@ -1,7 +1,6 @@
 import {
   createContext,
   useCallback,
-  useEffect,
   useContext,
   useMemo,
   useState

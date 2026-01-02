@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "../../components/Button";
 import { useAuth } from "./AuthContext";
 
 export function SignupPage() {
-  const navigate = useNavigate();
   const { signup } = useAuth();
 
   const [email, setEmail] = useState("");
