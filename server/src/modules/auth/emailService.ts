@@ -28,7 +28,7 @@ function getTransporter() {
 }
 
 export async function sendVerificationEmail(email: string, token: string): Promise<void> {
-  const verificationUrl = `${process.env.FRONTEND_URL || "http://localhost:5173"}/verify-email?token=${token}`;
+  const verificationUrl = `${process.env.FRONTEND_URL || "https://todo-list-main-client.vercel.app"}/verify-email?token=${token}`;
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
