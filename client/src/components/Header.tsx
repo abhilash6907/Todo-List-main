@@ -13,7 +13,8 @@ export function Header() {
 
   const handleLogout = async () => {
     await logout();
-    navigate("/login", { replace: true });
+    // Use window.location to force a full page reload to /login
+    window.location.href = "/login";
   };
 
   return (

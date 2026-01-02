@@ -85,6 +85,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       clearAuth();
       setToken(null);
       setUser(null);
+      // Force a small delay to ensure state propagates
+      await new Promise(resolve => setTimeout(resolve, 100));
       toast.success("Logged out");
     }
   }, []);
